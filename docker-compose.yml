@@ -1,0 +1,25 @@
+version: '3'
+services:
+  hello-express:
+    container_name: nodejs-crud
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    network_mode: bridge 
+  db:
+    container_name: postgresql
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=Pass987!
+    ports:
+      - '5432:5432'
+    network_mode: bridge
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
+    external: true
